@@ -1,137 +1,95 @@
-README – Prosedur MySQL Validasi & Analisis Data Mahasiswa
-📌 Deskripsi Proyek
+Tugas Praktikum 2 - Blok Prosedural MySQL
+Nama Kelompok
+Kelompok 8
 
-Proyek ini berisi kumpulan Stored Procedure MySQL yang digunakan untuk mensimulasikan proses pemeriksaan data akademik mahasiswa sebelum pengisian KRS (Kartu Rencana Studi).
+Anggota
+Muhammad Mahruf (IK2411061)
+Fauzan Azima (IK2411039)
+Gefran (IK2411029)
+Dosen Pengampu
+Abdul Malik, S.Kom., M.Cs.
 
-Sistem ini memproses data mahasiswa seperti:
+Deskripsi Singkat
+Program ini dibuat untuk memahami penggunaan blok prosedural di MySQL dengan memanfaatkan stored procedure. Data mahasiswa diproses menggunakan parameter sehingga dapat diubah langsung saat program dijalankan, tanpa harus mengedit kode utama.
 
-Identitas mahasiswa
-Status pembayaran UKT
-Jumlah SKS
-IPK
-Semester
+Tujuan
+Memahami konsep stored procedure di MySQL
+Menggunakan variabel dan parameter (IN)
+Menerapkan logika IF dalam program
+Menampilkan hasil menggunakan SELECT
+Struktur Program
+🔹 Bagian A – Identitas Mahasiswa
+Menampilkan identitas mahasiswa seperti nama, NIM, program studi, dan semester.
 
-Kemudian menghasilkan informasi:
+🔹 Bagian B – Validasi Akademik
+Melakukan pengecekan status pembayaran, jumlah SKS, dan IPK untuk menentukan valid atau tidaknya data.
 
-Validasi data akademik
-Analisis beban studi
-Evaluasi performa akademik
-Rekomendasi kelayakan pengambilan KRS
-Perbandingan dua mahasiswa
-🗂️ Struktur Prosedur
+🔹 Bagian C – Kelayakan KRS
+Menentukan apakah mahasiswa layak mengambil KRS berdasarkan data akademik yang dimasukkan.
 
-Terdapat 4 stored procedure utama:
+🔹 Bagian D – Perbandingan Mahasiswa
+Membandingkan dua mahasiswa berdasarkan IPK, dan jika sama maka dilihat dari jumlah SKS.
 
-Prosedur	Fungsi
-bagian_a	Menampilkan identitas mahasiswa
-bagian_b	Validasi data akademik & analisis performa
-bagian_c	Ringkasan kelayakan KRS
-bagian_d	Perbandingan dua mahasiswa
-⚙️ Cara Menjalankan
-Jalankan script SQL di MySQL / phpMyAdmin.
-Pastikan delimiter sudah sesuai (DELIMITER $$).
-Setelah semua prosedur dibuat, panggil dengan perintah CALL.
-🧩 Penjelasan Tiap Prosedur
-🟢 1. Prosedur bagian_a – Identitas Mahasiswa
-🎯 Tujuan
+Skenario Pengujian
+Program diuji dengan beberapa kondisi:
 
-Menampilkan identitas mahasiswa dalam bentuk kalimat lengkap.
+Data Valid
 
-📥 Parameter
-Parameter	Keterangan
-p_nama	Nama mahasiswa
-p_nim	NIM
-p_semester	Semester
-p_prodi	Program Studi
-▶️ Contoh Pemanggilan
-CALL bagian_a('Rina Putri','220101','4','Informatika');
-📤 Output
+Status: LUNAS
+SKS: > 0
+Hasil: Layak
+Tidak Valid (Status)
 
-Kalimat identitas mahasiswa yang telah diformat.
+Status: BELUM
+Hasil: Tidak Layak
+Tidak Valid (SKS)
 
-🟡 2. Prosedur bagian_b – Validasi & Analisis Akademik
-🎯 Tujuan
+SKS: 0
+Hasil: Tidak Layak
+Cara Menjalankan Program
+Contoh pemanggilan:
 
-Menentukan:
+Sql CALL bagian_c( 'Muhammad Mahruf','IK2411061',4,'INFORMATIKA',18,3.40,'LUNAS' );
 
-Status validasi data
-Beban studi berdasarkan SKS
-Performa akademik berdasarkan IPK
-📥 Parameter
-Parameter	Keterangan
-p_jumlah_sks	Total SKS
-p_ipk	IPK mahasiswa
-p_status_ukt	Status UKT (Lunas/Belum)
-p_semester	Semester
-📊 Kategori Beban Studi
-SKS	Kategori
-1–12	Ringan
-13–18	Sedang
-19–24	Padat
-📈 Kategori IPK
-IPK	Performa
-≥ 3.50	Sangat Baik
-≥ 3.00	Baik
-≥ 2.50	Cukup
-< 2.50	Perlu Pembinaan
-▶️ Contoh Pemanggilan
-CALL bagian_b(20,3.45,'LUNAS',4);
-🔵 3. Prosedur bagian_c – Ringkasan Kelayakan KRS
-🎯 Tujuan
+📂 Struktur Repository
+tugaspraktikum1-blokprosedural-kelompok8
+│
+├── README.md
+├── program.sql
+├── laporan.pdf
+└── screenshot/
+    ├── bagian_a.png
+    ├── bagian_a1.png
+    ├── bagian_b.png
+    ├── bagian_b1.png
+    ├── bagian_d.png
+    ├── bagian_d1.png
+    ├── c_valid.png
+    ├── c_valid1.png
+    ├── c_tidak_validUKT.png
+    ├── c_tidak_validUKT1.png
+    ├── c_tidak_validSKS.png
+    ├── c_tidak_validSKS1.png
+Dokumentasi Hasil Eksekusi
+Hasil eksekusi program telah didokumentasikan dalam bentuk screenshot dan disimpan pada repository ini.
 
-Menghasilkan ringkasan lengkap kelayakan mahasiswa mengambil KRS.
+Berikut pembagian hasil berdasarkan bagian program:
 
-Output meliputi:
-
-Identitas mahasiswa
-Kampus
-Beban studi
-Performa akademik
-Status kelayakan KRS
-Alasan kelayakan
-Ringkasan akhir
-▶️ Contoh Pemanggilan
-CALL bagian_c(
-'Rina Putri','220101','4','Informatika',
-20,3.45,'LUNAS'
-);
-🔴 4. Prosedur bagian_d – Perbandingan Dua Mahasiswa
-🎯 Tujuan
-
-Membandingkan dua mahasiswa berdasarkan:
-
-SKS
-IPK
-Beban studi
-Performa akademik
-
-Sistem akan memberikan kesimpulan siapa lebih unggul.
-
-▶️ Contoh Pemanggilan
-CALL bagian_d(
-'Rina','220101',4,20,3.60,'LUNAS',
-'Budi','220102',4,18,3.20,'LUNAS'
-);
-📤 Output
-Tabel perbandingan mahasiswa
-Kesimpulan mahasiswa yang lebih unggul
-🧠 Logika Sistem
-
-Sistem menggunakan:
-
-Variabel lokal (DECLARE)
-Percabangan (IF, ELSEIF)
-Penggabungan teks (CONCAT)
-Output tabel (SELECT)
-UNION ALL untuk perbandingan data
-🎓 Tujuan Pembelajaran
-
-Proyek ini bertujuan untuk melatih:
-
-Pembuatan Stored Procedure MySQL
-Penggunaan variabel & logika percabangan
-Pemrosesan data akademik sederhana
-Simulasi sistem validasi KRS
-✅ Kesimpulan
-
-Stored procedure ini berhasil mensimulasikan proses awal validasi data akademik mahasiswa sebelum pengisian KRS secara otomatis dan terstruktur menggunakan MySQL.
+🔹 Bagian A – Identitas Mahasiswa
+bagian_a.png
+bagian_a1.png
+🔹 Bagian B – Validasi Akademik
+bagian_b.png
+bagian_b1.png
+🔹 Bagian C – Kelayakan KRS
+c_valid.png
+c_valid1.png
+c_tidak_validUKT.png
+c_tidak_validUKT1.png
+c_tidak_validSKS.png
+c_tidak_validSKS1.png
+🔹 Bagian D – Perbandingan Mahasiswa
+bagian_d.png
+bagian_d1.png
+Kesimpulan
+Program ini berhasil mengimplementasikan blok prosedural di MySQL dengan menggunakan parameter sehingga data dapat diubah dengan mudah. Program juga mampu menghasilkan output yang berbeda sesuai kondisi yang diberikan.
